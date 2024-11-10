@@ -1,5 +1,4 @@
-import {useEffect, useState} from 'react';
-import {useParams, Link, useLocation, useLoaderData} from 'react-router-dom';
+import {Link, useLocation, useLoaderData} from 'react-router-dom';
 import { getVans } from '../../service/api';
 
 export function loader({ params }) {
@@ -20,7 +19,7 @@ const VanDetail = () => {
       </Link>
       
         <div className="van-detail">
-          <img src={vanDetail.imageUrl} alt="" />
+          <img src={vanDetail.imageUrl} alt="van" />
           <i className={`van-type ${vanDetail.type} selected`}>{vanDetail.type}</i>
           <h2>{vanDetail.name}</h2>
           <p className="van-price">

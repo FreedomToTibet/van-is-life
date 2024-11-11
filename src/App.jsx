@@ -26,6 +26,8 @@ import Login from './components/Login';
 import Error from './components/Error';
 
 import '../server';
+import { requireAuth } from '../util';
+
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 
@@ -50,23 +52,17 @@ const router = createBrowserRouter(
         <Route
           index
           element={<Dashboard />}
-          loader={async () => {
-            return null;
-          }}
+          loader={async () => await requireAuth() }
         />
         <Route
           path="income"
           element={<Income />}
-          loader={async () => {
-            return null;
-          }}
+          loader={async () => await requireAuth() }
         />
         <Route
           path="reviews"
           element={<Reviews />}
-          loader={async () => {
-						return null;
-					}}
+          loader={async () => await requireAuth() }
         />
         <Route
           path="vans"
@@ -81,23 +77,17 @@ const router = createBrowserRouter(
           <Route
             index
             element={<HostVanInfo />}
-            loader={async () => {
-              return null;
-            }}
+            loader={async () => await requireAuth() }
           />
           <Route
             path="pricing"
             element={<HostVanPricing />}
-            loader={async () => {
-              return null;
-            }}
+            loader={async () => await requireAuth() }
           />
           <Route
             path="photos"
             element={<HostVanPhotos />}
-            loader={async () => {
-              return null;
-            }}
+            loader={async () => await requireAuth() }
           />
         </Route>
       </Route>

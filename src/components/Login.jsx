@@ -1,7 +1,8 @@
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+// import { useNavigate } from "react-router-dom"
 
 const Login = () => {
-    const [loginFormData, setLoginFormData] = React.useState({ email: "", password: "" })
+    const [loginFormData, setLoginFormData] = useState({ email: "", password: "" })
 
     function handleSubmit(e) {
         e.preventDefault()

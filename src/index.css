@@ -49,6 +49,16 @@ header a:hover {
 	text-decoration: underline;
 }
 
+header .login-icon {
+	height: 1.5rem;
+	width: 1.5rem;
+}
+
+header .login-link {
+	display: inline-flex;
+	align-items: center;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;

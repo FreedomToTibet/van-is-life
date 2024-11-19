@@ -21,7 +21,7 @@ import HostVanPricing from './pages/HostVanDetail/HostVanPricing';
 import HostVanPhotos from './pages/HostVanDetail/HostVanPhotos';
 import Page404 from './pages/Page404';
 
-import Login, {loader as loginLoader} from './components/Login';
+import Login, {loader as loginLoader, action as loginAction} from './components/Login';
 
 import Error from './components/Error';
 
@@ -40,6 +40,7 @@ const router = createBrowserRouter(
 				path="login" 
 				element={<Login />}
 				loader={loginLoader}
+				action={loginAction}
 			/>
       <Route
         path="vans"

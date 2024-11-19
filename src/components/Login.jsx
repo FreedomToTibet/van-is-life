@@ -1,60 +1,60 @@
-import {useState} from 'react';
-import {useLoaderData} from 'react-router-dom';
+import { useRef, useEffect } from 'react';
+import { useLoaderData, Form, redirect, useNavigation } from 'react-router-dom';
 
 import {loginUser} from '../service/api';
 
-export function loader({request}) {
+export function loader({ request }) {
   return new URL(request.url).searchParams.get('message');
 }
 
+export async function action({ request }) {
+  const formData = await request.formData();
+  const email = formData.get('email');
+  const password = formData.get('password');
+  
+  try {
+    await loginUser({ email, password });
+    localStorage.setItem('loggedin', true);
+    return redirect('/host');
+  } catch (err) {
+		console.error(err);
+    return err;
+  }
+}
+
 const Login = () => {
-  const [loginFormData, setLoginFormData] = useState({email: '', password: ''});
-  const [status, setStatus] = useState('idle');
   const message = useLoaderData();
+  const navigation = useNavigation();
+  const formRef = useRef();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setStatus('submitting');
-    loginUser(loginFormData)
-      .then((data) => {
-        console.log(data);
-        setLoginFormData({email: '', password: ''});
-      })
-      .catch((err) => console.error(err))
-      .finally(() => setStatus('idle'));
-  }
+	useEffect(() => {
+    if (navigation.state === 'idle') {
+      // Reset the form inputs after submission
+      formRef.current.reset();
+    }
+  }, [navigation.state]);
 
-  function handleChange(e) {
-    const {name, value} = e.target;
-    setLoginFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   setStatus('submitting');
+  //   loginUser(loginFormData)
+  //     .then((data) => {
+  //       navigate("/host", {replace: true});
+  //       setLoginFormData({email: '', password: ''});
+  //     })
+  //     .catch((err) => console.error(err))
+  //     .finally(() => setStatus('idle'));
+  // }
 
   return (
     <div className="login-container">
       {message && <h2 style={{color: 'red'}}>{message}</h2>}
       <h1>Sign in to your account</h1>
-      <form onSubmit={handleSubmit} className="login-form">
-        <input
-          name="email"
-          onChange={handleChange}
-          type="email"
-          placeholder="Email address"
-          value={loginFormData.email}
-        />
-        <input
-          name="password"
-          onChange={handleChange}
-          type="password"
-          placeholder="Password"
-          value={loginFormData.password}
-        />
-        <button disabled={status === 'submiting'}>
-          {status === 'submitting' ? 'Logging in...' : 'Log in'}
-        </button>
-      </form>
+      <Form method="post" className="login-form" ref={formRef} replace>
+        <input name="email" type="email" placeholder="Email address" />
+        <input name="password" type="password" placeholder="Password" />
+        <button>Log in</button>
+      </Form>
     </div>
   );
 };

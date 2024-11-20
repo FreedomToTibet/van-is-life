@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { useLoaderData, Form, redirect, useNavigation } from 'react-router-dom';
+import { useLoaderData, Form, redirect, useNavigation, useActionData } from 'react-router-dom';
 
 import {loginUser} from '../service/api';
 
@@ -18,13 +18,14 @@ export async function action({ request }) {
     return redirect('/host');
   } catch (err) {
 		console.error(err);
-    return err;
+    return err.message;
   }
 }
 
 const Login = () => {
   const message = useLoaderData();
   const navigation = useNavigation();
+	const errorMessage = useActionData();
   const formRef = useRef();
 
 	useEffect(() => {
@@ -48,7 +49,9 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      {message && <h2 style={{color: 'red'}}>{message}</h2>}
+			{message && <h2 style={{color: 'red'}}>{message}</h2>}
+      {errorMessage && <h2 style={{color: 'red'}}>{errorMessage}</h2>}
+
       <h1>Sign in to your account</h1>
       <Form method="post" className="login-form" ref={formRef} replace>
         <input name="email" type="email" placeholder="Email address" />

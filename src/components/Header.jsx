@@ -29,9 +29,9 @@ const Header = () => {
         </NavLink>
       </nav>
       <div className="header-right">
-        <Link to="login" className="login-link">
+        {!localStorage.getItem('loggedin') && <Link to="login" className="login-link">
           <img src={loginIcon} className="login-icon" alt="Login" />
-        </Link>
+        </Link>}
         {localStorage.getItem('loggedin') && <button onClick={fakeLogOut} className="logout-button">
           Log Out
         </button>}

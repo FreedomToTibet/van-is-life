@@ -28,8 +28,6 @@ import Error from './components/Error';
 import '../server';
 import { requireAuth } from '../util';
 
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +49,7 @@ const router = createBrowserRouter(
       <Route 
 				path="vans/:id" 
 				element={<VanDetail />} 
+				errorElement={<Error />}
 				loader={vanDetailLoader} 
 			/>
       <Route path="host" element={<HostLayout />}>
@@ -72,11 +71,13 @@ const router = createBrowserRouter(
         <Route
           path="vans"
           element={<HostVans />}
+					errorElement={<Error />}
           loader={hostVansLoader}
         />
         <Route
           path="vans/:id"
           element={<HostVanDetail />}
+					errorElement={<Error />}
           loader={hostVanDetailLoader}
         >
           <Route

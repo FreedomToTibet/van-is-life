@@ -1,5 +1,5 @@
-import {useState, Suspense} from 'react';
-import {Link, useSearchParams, useLoaderData, defer, Await} from 'react-router-dom';
+import { Suspense } from 'react';
+import { Link, useSearchParams, useLoaderData, defer, Await } from 'react-router-dom';
 
 import {getVans} from '../../service/api';
 
@@ -9,7 +9,6 @@ export function loader() {
 
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [error, setError] = useState(null);
   const vansPromise = useLoaderData();
 
   const typeFilter = searchParams.get('type');
@@ -26,9 +25,7 @@ const Vans = () => {
     });
   }
 
-  if (error)
-    return <h1>Something went wrong: {error.message}. Please try again later.</h1>;
-
+ 
   return (
     <div className="van-list-container">
       <h1>Explore our vans options</h1>

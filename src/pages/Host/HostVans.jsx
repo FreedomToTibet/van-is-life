@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import {Link, useLoaderData, defer, Await} from 'react-router-dom';
+import { Link, useLoaderData, defer, Await } from 'react-router-dom';
 import { getHostVans } from '../../service/api';
 import { requireAuth } from '../../../util';
 
